@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Players Database";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <form method="post">
+        <label for="playerNameInput">Name</label>
+        <input type="text" id="playerNameInput" />
+
+        <label for="orderBy">Order Field: </label>
+        <select name="orderBy" id="orderBy">
+            <option value="country">Country</option>
+            <option value="name" selected>Name</option>
+            <option value="position">Position</option>
+            <option value="rating">Rating</option>
+        </select>
+
+        <label for="order">Order By: </label>
+        <select name="order" id="order">
+            <option value="asc" selected>Ascending</option>
+            <option value="desc">Descending</option>
+        </select>
+
+        <input type="submit" value="Search" />
+    </form>
+</div>
