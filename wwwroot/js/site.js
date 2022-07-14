@@ -8,7 +8,8 @@ console.log("JS connected")
 
 const createPlayerOverall = document.querySelector("#createPlayerOverall")
 
-const createPlayerStatInputs = document.querySelectorAll(".statInput")
+const createPlayerStatInputs = document.querySelectorAll('.statInput')
+console.log(createPlayerStatInputs);
 
 const paceInput = document.querySelector("#paceInput")
 const shootingInput = document.querySelector("#shootingInput")
@@ -18,8 +19,20 @@ const defendingInput = document.querySelector("#defendingInput")
 const physicalInput = document.querySelector("#physicalInput")
 
 //ERROR - cannot add event listener?
-createPlayerStatInputs.addEventListener('change', updateOverall);
+createPlayerStatInputs.forEach(element => {
+    element.addEventListener("change", updateOverall)
+})
 
 function updateOverall(e){
-    console.log(e.target.value)
+
+    let total = 0;
+
+    createPlayerStatInputs.forEach(element => {
+        total += parseInt(element.value)
+    })
+
+    const average = Math.round(total/6)
+
+    console.log(average)
+    createPlayerOverall.innerHTML = average
 }

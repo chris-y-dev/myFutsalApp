@@ -12,16 +12,16 @@
         @* //////////Stats////////// *@
         <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col py-2">
 
                     @* Name *@
                     <label asp-for="NickName">Nickname</label>
                     <input type="text" asp-for="NickName" />
                 </div>
-                <div class="col">
+                <div class="col py-2">
                     @* Position *@
                     <label asp-for="Position">Position</label>
-                    <select asp-for="Position">
+                    <select asp-for="Position" class="smallInput">
                         <option value="GK">GK</option>
                         <option value="CB">CB</option>
                         <option value="LB">LB</option>
@@ -40,12 +40,12 @@
 
             <div class="row">
 
-                <div class="col">
+                <div class="col py-2">
                     <label asp-for="Pace">Pace</label>
                     <input type="number" asp-for="Pace" min="1" max="99" value="50" id="paceInput" class="statInput" />
                 </div>
 
-                <div class="col">
+                <div class="col py-2">
                     <label asp-for="Shooting">Shooting</label>
                     <input type="number" asp-for="Shooting" min="1" max="99" value="50" id="shootingInput"
                         class="statInput" />
@@ -53,12 +53,12 @@
             </div>
 
             <div class="row">
-                <div class="col">
+                <div class="col py-2">
                     <label asp-for="Passing">Passing</label>
                     <input type="number" asp-for="Passing" min="1" max="99" value="50" id="passingInput"
                         class="statInput" />
                 </div>
-                <div class="col">
+                <div class="col py-2">
                     <label asp-for="Dribbling">Dribbling</label>
                     <input type="number" asp-for="Dribbling" min="1" max="99" value="50" id="dribblingInput"
                         class="statInput" />
@@ -66,33 +66,53 @@
             </div>
 
             <div class="row">
-                <div class="col">
+                <div class="col py-2">
                     <label asp-for="Defending">Defending</label>
                     <input type="number" asp-for="Defending" min="1" max="99" value="50" id="defendingInput"
                         class="statInput" />
                 </div>
-                <div class="col">
+                <div class="col py-2">
                     <label asp-for="Physical">Physical</label>
                     <input type="number" asp-for="Physical" min="1" max="99" value="50" id="physicalInput"
                         class="statInput" />
                 </div>
             </div>
             <div class="row">
-                <div class="col">
+                <div class="col py-2">
                     <label asp-for="SkillMoves">Skill Moves (1-5)</label>
                     <input type="number" asp-for="SkillMoves" min="1" max="5" value="3" class="smallInput" />
 
                 </div>
-                <div class="col">
+                <div class="col py-2">
 
                     <label asp-for="WeakFoot">Weak Foot (1-5)</label>
                     <input type="number" asp-for="WeakFoot" min="1" max="5" value="3" class="smallInput" />
                 </div>
             </div>
+            <div class="row">
+                <p>Overall: <span id="createPlayerOverall">50</span></p>
+            </div>
         </div>
 
-        <div>
-            <p>Overall: <span id="createPlayerOverall"></span></p>
-        </div>
+        <input type="submit" value="Create Player" />
     </form>
+    @if (TempData["status"] != null)
+    {
+        if (TempData["status"].Equals("OK"))
+        {
+            <p class="successResponse mt-3">Successfully created new player.</p>
+        }
+        else if (TempData["status"].Equals("BadRequest"))
+        {
+            <p class="errorResponse mt-3">Error, unable to create new player. Please check all fields are correctly entered and
+                try
+                again.</p>
+        }
+        else
+        {
+            <p class="errorResponse mt-3">Error, unable to create new player. Please check all fields are correctly entered and
+                try
+                again.</p>
+        }
+    }
 </div>

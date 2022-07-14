@@ -1,35 +1,46 @@
-@model IEnumerable<myFutsalApp.Models.Player>;
+@* @model IEnumerable<myFutsalApp.Models.Player>; *@
+
+@model myFutsalApp.Models.PlayersPage.PlayersPageModel;
+
 @{
     ViewData["Title"] = "Players Database";
-    foreach (var data in Model)
+    if (Model.PlayerList != null)
     {
-        Console.WriteLine(data.NickName);
+        foreach (var data in Model.PlayerList)
+        {
+            Console.WriteLine(data?.NickName);
+        }
     }
 }
 
 <div class="text-center">
     <h1 class="display-4">@ViewData["Title"]</h1>
     <form method="post" class="mt-5">
-        <label for="playerNameInput">Name</label>
-        <input type="text" id="playerNameInput" />
+        <label asp-for="FilterModel.Name">Name</label>
+        <input type="text" id="playerNameInput" asp-for="FilterModel.Name" />
 
-        <label for="orderBy">Order Field: </label>
-        <select name="orderBy" id="orderBy">
+        <label asp-for="FilterModel.Field">Order Field: </label>
+        <select id="orderBy" asp-for="FilterModel.Field">
             <option value="country">Country</option>
-            <option value="name" selected>Name</option>
+            <option value="nickname" selected>Name</option>
             <option value="position">Position</option>
             <option value="rating">Rating</option>
         </select>
 
-        <label for="order">Order By: </label>
-        <select name="order" id="order">
+        <label asp-for="FilterModel.Order">Order By: </label>
+        <select asp-for="FilterModel.Order" id="order">
             <option value="asc" selected>Ascending</option>
             <option value="desc">Descending</option>
         </select>
 
         <input type="submit" value="Search" />
     </form>
-    <section>
+    <section class="playersTable">
+        @if (TempData["status"] != null)
+        {
+            <p class="errorResponse">Error - Unable to load players data. Please try again.</p>
+        }
+
         <div class="overflow-auto">
             <table class="table mt-5">
                 <thead>
@@ -46,22 +57,36 @@
                     <th scope="col">WeakFoot</th>
                 </thead>
 
-                @foreach (var player in Model)
+                @if (Model.PlayerList != null)
                 {
-                    <tr>
-                        <td>@player.NickName</td>
-                        <td>@player.Position</td>
-                        <td>@player.Overall</td>
-                        <td>@player.Pace</td>
-                        <td>@player.Shooting</td>
-                        <td>@player.Passing</td>
-                        <td>@player.Dribbling</td>
-                        <td>@player.Defending</td>
-                        <td>@player.Physical</td>
-                        <td>@player.SkillMoves</td>
-                        <td>@player.WeakFoot</td>
-                    </tr>
+                    int i = 0;
+                    @foreach (var player in Model.PlayerList)
+                    {
+                        string className = (i % 2 == 0 ? "tableRowlight" : "tableRowDark");
+
+                        <tr class="@className">
+                            <td>@player.NickName</td>
+                            <td>@player.Position</td>
+                            <td>@player.Overall</td>
+                            <td>@player.Pace</td>
+                            <td>@player.Shooting</td>
+                            <td>@player.Passing</td>
+                            <td>@player.Dribbling</td>
+                            <td>@player.Defending</td>
+                            <td>@player.Physical</td>
+                            <td>@player.SkillMoves</td>
+                            <td>@player.WeakFoot</td>
+                        </tr>
+
+                        //change row colour
+                        i++;
+                    }
                 }
+                else
+                {
+                    <p class="errorResponse py-4">No players found. Please retry with another search.</p>
+                }
+
             </table>
         </div>
     </section>
