@@ -1,10 +1,15 @@
+@model IEnumerable<myFutsalApp.Models.Player>;
 @{
     ViewData["Title"] = "Players Database";
+    foreach (var data in Model)
+    {
+        Console.WriteLine(data.NickName);
+    }
 }
 
 <div class="text-center">
     <h1 class="display-4">@ViewData["Title"]</h1>
-    <form method="post">
+    <form method="post" class="mt-5">
         <label for="playerNameInput">Name</label>
         <input type="text" id="playerNameInput" />
 
@@ -24,4 +29,40 @@
 
         <input type="submit" value="Search" />
     </form>
+    <section>
+        <div class="overflow-auto">
+            <table class="table mt-5">
+                <thead>
+                    <th scope="col">Nickname</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Overall</th>
+                    <th scope="col">Pace</th>
+                    <th scope="col">Shooting</th>
+                    <th scope="col">Passing</th>
+                    <th scope="col">Dribbling</th>
+                    <th scope="col">Defending</th>
+                    <th scope="col">Physical</th>
+                    <th scope="col">SkillMoves</th>
+                    <th scope="col">WeakFoot</th>
+                </thead>
+
+                @foreach (var player in Model)
+                {
+                    <tr>
+                        <td>@player.NickName</td>
+                        <td>@player.Position</td>
+                        <td>@player.Overall</td>
+                        <td>@player.Pace</td>
+                        <td>@player.Shooting</td>
+                        <td>@player.Passing</td>
+                        <td>@player.Dribbling</td>
+                        <td>@player.Defending</td>
+                        <td>@player.Physical</td>
+                        <td>@player.SkillMoves</td>
+                        <td>@player.WeakFoot</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </section>
 </div>

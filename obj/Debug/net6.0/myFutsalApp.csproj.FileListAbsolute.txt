@@ -24,3 +24,9 @@ H:\c#\myFutsalApp\obj\Debug\net6.0\refint\myFutsalApp.dll
 H:\c#\myFutsalApp\obj\Debug\net6.0\myFutsalApp.pdb
 H:\c#\myFutsalApp\obj\Debug\net6.0\myFutsalApp.genruntimeconfig.cache
 H:\c#\myFutsalApp\obj\Debug\net6.0\ref\myFutsalApp.dll
+H:\c#\myFutsalApp\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+H:\c#\myFutsalApp\bin\Debug\net6.0\System.Net.Http.Extensions.dll
+H:\c#\myFutsalApp\bin\Debug\net6.0\System.Net.Http.Primitives.dll
+H:\c#\myFutsalApp\bin\Debug\net6.0\Newtonsoft.Json.dll
+H:\c#\myFutsalApp\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+H:\c#\myFutsalApp\obj\Debug\net6.0\myFutsalApp.csproj.CopyComplete

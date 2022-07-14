@@ -1,25 +1,50 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Encodings.Web;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
+using myFutsalApp.Models;
 
 namespace myFutsalApp.Controllers;
 
 public class PlayersController : Controller
 {
-    // 
-    // GET: /HelloWorld/
+    //Base URL for HTTP requests
+    string BaseUrl = "https://localhost:7120/";
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+
+        List<Player?>? playersData = new List<Player?>();
+        using (var client = new HttpClient())
+        {
+            //Passing service base url
+            client.BaseAddress = new Uri(BaseUrl);
+            client.DefaultRequestHeaders.Clear();
+
+            //Define request data format
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            //Sending request to find web api REST service resource GetAllEmployees using HttpClient
+            HttpResponseMessage Res = await client.GetAsync("player/allplayers");
+
+            if (Res.IsSuccessStatusCode)
+            {
+                //if successful, store Json Data
+                var PlayersResponse = Res.Content.ReadAsStringAsync().Result;
+
+                Console.WriteLine(PlayersResponse); ////Print the data
+                //Deserialise the response + store into List
+                playersData = JsonConvert.DeserializeObject<List<Player?>>(PlayersResponse);
+            }
+
+            //return player list to view
+            return View(playersData);
+        }
     }
 
-    // 
-    // GET: /HelloWorld/Welcome/ 
 
-    public string Welcome(string name, int numTimes = 1)
-    {
-        //HTML enconder protects from malicious input
+    // [HttpPost]
+    // public ActionResult Index(string name, string field, string order)
+    // {
 
-        return HtmlEncoder.Default.Encode($"Hello {name}, NumTimes is: {numTimes}");
-    }
+    // }
 }

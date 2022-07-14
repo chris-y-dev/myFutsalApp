@@ -16,3 +16,16 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Create */
+.statInput{
+  width: 70px;
+}
+
+.smallInput{
+  width:50px;
+}
+
+#createPlayerForm label{
+  width: 120px;
+}
