@@ -51,10 +51,10 @@ public class PlayersController : Controller
         }
     }
 
-
-    [HttpPost]
-    public async Task<IActionResult> Index(PlayersPageModel model)
+    [HttpPost("players/search")]
+    public async Task<IActionResult> Search(PlayersPageModel model)
     {
+        Console.WriteLine("\nSearch\n");
         List<Player?>? playersData = new List<Player?>();
 
         PlayersPageModel searchFilters = model;
@@ -69,9 +69,9 @@ public class PlayersController : Controller
 
             //Sending request to find web api REST service resource GetAllEmployees using HttpClient
 
-            string queryName = searchFilters.FilterModel.Name;
-            string queryField = searchFilters.FilterModel.Field;
-            string queryOrder = searchFilters.FilterModel.Order;
+            string? queryName = searchFilters.FilterModel?.Name;
+            string? queryField = searchFilters.FilterModel?.Field;
+            string? queryOrder = searchFilters.FilterModel?.Order;
 
             HttpResponseMessage Res;
 
@@ -104,7 +104,32 @@ public class PlayersController : Controller
             }
 
             //return player list to view
-            return View(searchFilters);
+            return View("index", searchFilters);
+        }
+    }
+
+
+
+    ///Delete
+    [HttpPost]
+    public async Task<IActionResult> Index(PlayersPageModel model)
+    {
+        Console.WriteLine("\n\nDelete\n\n");
+        int? id = model.PlayerIdDelete;
+
+        using (var client = new HttpClient())
+        {
+            client.BaseAddress = new Uri(BaseUrl);
+
+            HttpResponseMessage Res = await client.DeleteAsync($"player/delete/{id}");
+
+            if (!Res.IsSuccessStatusCode)
+            {
+                TempData["status"] = Res.StatusCode.ToString();
+                return View("index");
+            }
+
+            return RedirectToAction();
         }
     }
 }

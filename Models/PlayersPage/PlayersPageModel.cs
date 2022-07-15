@@ -10,4 +10,8 @@ public class PlayersPageModel
     public IEnumerable<Player>? PlayerList { get; set; } = new List<Player>();
 
     public PlayerSearchFilter? FilterModel { get; set; }
+
+    public int? PlayerIdEdit { get; set; }
+
+    public int? PlayerIdDelete { get; set; }
 }
