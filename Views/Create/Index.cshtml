@@ -89,30 +89,33 @@
                     <input type="number" asp-for="WeakFoot" min="1" max="5" value="3" class="smallInput" />
                 </div>
             </div>
-            <div class="row">
+            <div class="row my-2">
                 <p>Overall: <span id="createPlayerOverall">50</span></p>
+            </div>
+            <div class="row justify-content-center">
+                <label asp-for="Summary">Summary</label>
+                <textarea asp-for="Summary" placeholder="e.g. Box-to-box midfielder, magician, heart of the team."
+                    maxlength="200" id="createTextArea"></textarea>
             </div>
         </div>
 
-        <input type="submit" value="Create Player" class="btn btn-secondary" />
+        <input type="submit" value="Create Player" class="btn btn-secondary my-4" />
     </form>
     @if (TempData["status"] != null)
     {
         if (TempData["status"].Equals("OK"))
         {
-            <p class=" successResponse mt-3">Successfully created new player.</p>
+            <p class=" successResponse mt-3">Successfully create new player.</p>
         }
         else if (TempData["status"].Equals("BadRequest"))
         {
-            <p class="errorResponse mt-3">Error, unable to create new player. Please check all fields are correctly entered
-                and
+            <p class="errorResponse mt-3">Error, unable to create new player. Please check all fields are correctly entered and
                 try
                 again.</p>
         }
         else
         {
-            <p class="errorResponse mt-3">Error, unable to create new player. Please check all fields are correctly entered
-                and
+            <p class="errorResponse mt-3">Error, unable to create new player. Please check all fields are correctly entered and
                 try
                 again.</p>
         }

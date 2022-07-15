@@ -4,13 +4,13 @@
 
 @{
     ViewData["Title"] = "Players Database";
-    @* if (Model.PlayerList != null)
-        {
+    if (Model.PlayerList != null)
+    {
         foreach (var data in Model.PlayerList)
         {
-        Console.WriteLine(data?.NickName);
+            Console.WriteLine(data?.NickName + " " + data?.Overall);
         }
-        } *@
+    }
 }
 
 <div class="text-center">
@@ -79,12 +79,18 @@
                             <td>@player.SkillMoves</td>
                             <td>@player.WeakFoot</td>
                             <td>
-                                <form method="post">
+                                @* <form method="post" action="/editplayer/">
+                                    <input type="hidden" asp-for="PlayerIdEdit" value="@player.Id" />
+                                    <input type="submit" value="Edit" class="btn btn-primary" />
+                                    </form>> *@
+                                @* <a class="btn btn-primary" href="/editplayer/@player.Id">Edit</a> *@
+                                <form method="post" action="/editplayer/@player.Id">
+                                    <input type="hidden" value="@player.Id" asp-for="PlayerIdEdit" />
                                     <input type="submit" value="Edit" class="btn btn-primary" />
                                 </form>
                             </td>
                             <td>
-                                <form method="post" action="">
+                                <form method="post">
                                     <input type="hidden" value="@player.Id" asp-for="PlayerIdDelete" />
                                     <input type="submit" value="Delete" class="btn btn-danger" />
                                 </form>

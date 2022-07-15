@@ -51,3 +51,8 @@ body {
 #createPlayerForm label{
   width: 120px;
 }
+
+#createTextArea{
+  height:100px;
+  max-width: 500px;
+}

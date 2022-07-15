@@ -1,0 +1,130 @@
+@model myFutsalApp.Models.Player;
+@{
+    ViewData["Title"] = "Edit Player";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <form method="post" class="mt-5" id="editPlayerForm">
+
+        @* //////////Stats////////// *@
+        <div class="container">
+            <div class="row">
+                <div class="col py-2">
+
+                    @* Hidden parameters *@
+                    <input type="hidden" asp-for="Id" value="@Model.Id" />
+
+                    @* Name *@
+                    <label asp-for="NickName">Nickname</label>
+                    <input type="text" asp-for="NickName" value="@Model.NickName" />
+                </div>
+                <div class="col py-2">
+                    @* Position *@
+                    <label asp-for="Position">Position</label>
+                    <select asp-for="Position" class="smallInput">
+                        <option value="GK" selected="@Model.Position=='GK'?'selected':null">GK</option>
+                        <option value="CB" selected="@Model.Position=='CB'?'selected':null">CB</option>
+                        <option value="LB" selected="@Model.Position=='LB'?'selected':null">LB</option>
+                        <option value="RB" selected="@Model.Position=='RB'?'selected':null">RB</option>
+                        <option value="DM" selected="@Model.Position=='DM'?'selected':null">DM</option>
+                        <option value="CM" selected="@Model.Position=='CM'?'selected':null">CM</option>
+                        <option value="RM" selected="@Model.Position=='RM'?'selected':null">RM</option>
+                        <option value="LM" selected="@Model.Position=='LM'?'selected':null">LM</option>
+                        <option value="AM" selected="@Model.Position=='AM'?'selected':null">AM</option>
+                        <option value="RW" selected="@Model.Position=='RW'?'selected':null">RW</option>
+                        <option value="LW" selected="@Model.Position=='LW'?'selected':null">LW</option>
+                        <option value="ST" selected="@Model.Position=='ST'?'selected':null">ST</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col py-2">
+                    <label asp-for="Pace">Pace</label>
+                    <input type="number" asp-for="Pace" min="1" max="99" value="@Model.Pace" id="paceInput"
+                        class="statInput" />
+                </div>
+
+                <div class="col py-2">
+                    <label asp-for="Shooting">Shooting</label>
+                    <input type="number" asp-for="Shooting" min="1" max="99" value="@Model.Shooting" id="shootingInput"
+                        class="statInput" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col py-2">
+                    <label asp-for="Passing">Passing</label>
+                    <input type="number" asp-for="Passing" min="1" max="99" value="@Model.Passing" id="passingInput"
+                        class="statInput" />
+                </div>
+                <div class="col py-2">
+                    <label asp-for="Dribbling">Dribbling</label>
+                    <input type="number" asp-for="Dribbling" min="1" max="99" value="@Model.Dribbling"
+                        id="dribblingInput" class="statInput" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col py-2">
+                    <label asp-for="Defending">Defending</label>
+                    <input type="number" asp-for="Defending" min="1" max="99" value="@Model.Defending"
+                        id="defendingInput" class="statInput" />
+                </div>
+                <div class="col py-2">
+                    <label asp-for="Physical">Physical</label>
+                    <input type="number" asp-for="Physical" min="1" max="99" value="@Model.Physical" id="physicalInput"
+                        class="statInput" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col py-2">
+                    <label asp-for="SkillMoves">Skill Moves (1-5)</label>
+                    <input type="number" asp-for="SkillMoves" min="1" max="5" value="@Model.SkillMoves"
+                        class="smallInput" />
+
+                </div>
+                <div class="col py-2">
+
+                    <label asp-for="WeakFoot">Weak Foot (1-5)</label>
+                    <input type="number" asp-for="WeakFoot" min="1" max="5" value="@Model.WeakFoot"
+                        class="smallInput" />
+                </div>
+            </div>
+            <div class="row my-2">
+                <p>Overall: <span id="createPlayerOverall">@Model.Overall</span></p>
+            </div>
+            <div class="row justify-content-center">
+                <label asp-for="Summary">Summary</label>
+                <textarea asp-for="Summary" placeholder="e.g. Box-to-box midfielder, magician, heart of the team."
+                    maxlength="200" id="createTextArea" value="@Model.Summary"></textarea>
+            </div>
+        </div>
+
+        <input type="submit" value="Edit Player" class="btn btn-secondary my-4" />
+    </form>
+    @if (TempData["status"] != null)
+    {
+        if (TempData["status"].Equals("OK"))
+        {
+            <p class=" successResponse mt-3">Successfully edit player.</p>
+        }
+        else if (TempData["status"].Equals("BadRequest"))
+        {
+            <p class="errorResponse mt-3">Error, unable to edit player. Please check all fields are correctly entered
+                and
+                try
+                again.</p>
+        }
+        else
+        {
+            <p class="errorResponse mt-3">Error, unable to edit player. Please check all fields are correctly entered
+                and
+                try
+                again.</p>
+        }
+    }
+</div>

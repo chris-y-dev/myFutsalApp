@@ -11,6 +11,7 @@ public class PlayersController : Controller
     //Base URL for HTTP requests
     string BaseUrl = "https://localhost:7120/";
 
+    [HttpGet]
     public async Task<IActionResult> Index()
     {
 
@@ -33,9 +34,6 @@ public class PlayersController : Controller
             {
                 //if successful, store Json Data
                 var PlayersResponse = Res.Content.ReadAsStringAsync().Result;
-
-                Console.WriteLine(PlayersResponse); ////Print the data
-
                 //Deserialise the response + store into List
                 playersData = JsonConvert.DeserializeObject<List<Player?>>(PlayersResponse);
 
